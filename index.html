@@ -4,84 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="js.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="title">Let's play janken!</div>
+    <div class="main-container">
+        <div class="game-container">
+            <div class="shoutout">Choose Rock, Paper, or Scissors</div>
+            <div class="game-table">
+                <div class="game-square" id="game-player">
+                    <div class="game-instructions" id="player-instructions">
+                        <div class="win-counter" id="player-win-counter">0</div>
+                        <p class="player-label">Player</p>
+                    </div>
+                    <div class="img-container" id="player-images">
+                        <img id="rock" src="img/rock.png" alt="Rock" width="110px" height="110px">
+                        <img id="paper" src="img/paper.png" alt="Paper" width="110px" height="110px">
+                        <img id="scissors" src="img/scissors.png" alt="Scissors" width="110px" height="110px">
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="game-square" id="game-computer">
+                    <div class="game-instructions" id="computer-instructions">
+                        <p class="player-label">Computer</p>
+                        <div class="win-counter" id="computer-win-counter">0</div>
+                    </div>
+                    <div class="img-container">
+                        <img src="img/question.png" alt="Question" width="110px" height="110px">
+                    </div>
+                </div>
+            </div>
+            <div class="game-results">
+                <p class="who-wins">This player wins</p>
+                <p class="how-win">Something beat something else</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">Curtendo 2023</div>
 </body>
-<script>
-    // GET computer choice of rock, scissor, or paper
-    function getComputerChoice() {
-        const computerChoice = ["rock", "paper", "scissors"];
-        const random = Math.floor(Math.random() * 3);
-        return (computerChoice[random]);
-    }
-
-    // GET player selection of rock, paper, or paper
-    // Validate this case insensitive
-    function getPlayerChoice() {
-        let choice;
-        do {
-            choice = prompt("Please choose rock, paper, or scissors.").toLowerCase();
-            if (choice === null) {
-                break;
-            }
-        } while (choice !== "rock" && choice !== "paper" && choice !== "scissors");
-        return choice;
-    }
-    
-    function playRound(computer, player) {
-        let winner;
-        if (player === computer) {
-            alert(`Draw.
-                    Player: ${player}... Games won: ${playerWin} 
-                    Computer: ${computer}... Games won: ${computerWin}
-                    Play again!`);
-            gameIsDraw = true;
-            winner = "draw";
-        } else if ((player === "rock" && computer === "scissors") ||
-                   (player === "paper" && computer === "rock") ||
-                   (player === "scissors" && computer === "paper")) {
-            playerWin += 1;
-            alert(`You win!
-                    Player: ${player}... Games won: ${playerWin} 
-                    Computer: ${computer}... Games won: ${computerWin}`);
-            gameIsDraw = false;
-            winner = "player";
-        } else {
-            computerWin += 1;
-            alert(`You lose!
-                    Player: ${player}... Games won: ${playerWin} 
-                    Computer: ${computer}... Games won: ${computerWin}`);
-            gameIsDraw = false;
-            winner = "computer";
-        }
-        return winner;
-    }
-
-    function game() {
-        while (playerWin < 3 && computerWin < 3) {
-            // Play the game
-            let gameWinner = "";
-            do {
-                let computerSelection = getComputerChoice();
-                let playerSelection = getPlayerChoice();
-
-                console.log(computerSelection);
-                console.log(playerSelection);
-
-                gameWinner = playRound(computerSelection, playerSelection);
-            } while (gameIsDraw);
-        }
-        alert(`Best-of-five results:
-                Player: ${playerWin} games won 
-                Computer: ${computerWin} games won`);
-    }
-
-    let gameIsDraw;
-    let playerWin = 0;
-    let computerWin = 0;
-
-    game();
-
-</script>
 </html>

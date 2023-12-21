@@ -1,0 +1,108 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    background: #aaa;
+    color: #333;
+    text-align: center;
+}
+
+.title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.game-container {
+    border: 6px solid black;
+    border-radius: 20px;
+    box-shadow: 4px 4px gray;
+}
+
+.shoutout {
+    border-bottom: 4px solid black;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.game-table {
+    display: flex;
+    font-size: 20px;
+    height: 270px;
+    padding: 15px 20px;
+}
+
+.game-square {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.game-instructions {
+    flex-grow: 0;
+    display: flex;
+
+}
+
+.win-counter {
+    font-size: 25px;
+    border: 3px solid black;
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+#player-win-counter {
+    background-color: rgb(150, 169, 224);
+}
+
+#computer-win-counter {
+    background-color: rgb(224, 150, 150);
+}
+
+.player-label {
+    margin: auto 10px;
+    font-size: x-large;
+}
+
+#computer-instructions {
+    justify-content: flex-end;
+}
+
+.img-container {
+    flex-grow: 3;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 20px;
+    border-top: 2px solid black;
+    margin-top: 10px;
+}
+
+img {
+    border: 2px solid black;
+    border-radius: 6px;
+    box-shadow: 3px 3px gray;
+    transition: filter 0.2s ease;
+}
+
+#player-images img:hover {
+    cursor: pointer;
+    filter: sepia(50%) saturate(700%) hue-rotate(80deg) brightness(70%) contrast(100%);
+}
+
+.divider {
+    width: 2px;
+    background-color: black;
+    height: 100%;
+    margin: auto 20px;
+}
+
+.game-results {
+    border-top: 4px solid black;
+    font-size: large;
+}

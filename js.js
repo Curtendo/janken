@@ -1,0 +1,75 @@
+
+
+// GET computer choice of rock, scissor, or paper
+function getComputerChoice() {
+    const computerChoice = ["rock", "paper", "scissors"];
+    const random = Math.floor(Math.random() * 3);
+    return (computerChoice[random]);
+}
+
+// GET player selection of rock, paper, or paper
+// Validate this case insensitive
+function getPlayerChoice() {
+    let choice;
+    do {
+        choice = prompt("Please choose rock, paper, or scissors.").toLowerCase();
+        if (choice === null) {
+            break;
+        }
+    } while (choice !== "rock" && choice !== "paper" && choice !== "scissors");
+    return choice;
+}
+
+function playRound(computer, player) {
+    let winner;
+    if (player === computer) {
+        alert(`Draw.
+                Player: ${player}... Games won: ${playerWin} 
+                Computer: ${computer}... Games won: ${computerWin}
+                Play again!`);
+        gameIsDraw = true;
+        winner = "draw";
+    } else if ((player === "rock" && computer === "scissors") ||
+                (player === "paper" && computer === "rock") ||
+                (player === "scissors" && computer === "paper")) {
+        playerWin += 1;
+        alert(`You win!
+                Player: ${player}... Games won: ${playerWin} 
+                Computer: ${computer}... Games won: ${computerWin}`);
+        gameIsDraw = false;
+        winner = "player";
+    } else {
+        computerWin += 1;
+        alert(`You lose!
+                Player: ${player}... Games won: ${playerWin} 
+                Computer: ${computer}... Games won: ${computerWin}`);
+        gameIsDraw = false;
+        winner = "computer";
+    }
+    return winner;
+}
+
+function game() {
+    // while (playerWin < 3 && computerWin < 3) {
+        // Play the game
+        let gameWinner = "";
+        do {
+            let computerSelection = getComputerChoice();
+            let playerSelection = getPlayerChoice();
+
+            console.log(computerSelection);
+            console.log(playerSelection);
+
+            gameWinner = playRound(computerSelection, playerSelection);
+        } while (gameIsDraw);
+    }
+    alert(`Best-of-five results:
+            Player: ${playerWin} games won 
+            Computer: ${computerWin} games won`);
+}
+
+let gameIsDraw;
+let playerWin = 0;
+let computerWin = 0;
+
+game();
