@@ -95,6 +95,10 @@ img {
     filter: sepia(50%) saturate(700%) hue-rotate(80deg) brightness(70%) contrast(100%);
 }
 
+.active-image {
+    filter: sepia(50%) saturate(700%) hue-rotate(80deg) brightness(70%) contrast(100%);
+}
+
 .divider {
     width: 2px;
     background-color: black;
