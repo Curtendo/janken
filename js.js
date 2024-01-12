@@ -1,8 +1,10 @@
-let gameIsDraw;
+let gameover = false;
+let canClick = true;
 let playerWinCount = 0;
 let computerWinCount = 0;
 let clickedImage;
 let shoutout = document.querySelector('.shoutout');
+
 
 // GET computer choice of rock, scissor, or paper
 function getComputerChoice() {
@@ -15,12 +17,13 @@ function getComputerChoice() {
 const buttons = document.querySelector('#player-images');
 buttons.addEventListener('click', function(e) {
     if (e.target.tagName === 'IMG') {
-        clickedImage = e.target;
-        let playerChoiceID = clickedImage.id;
-
-        clickedImage.classList.toggle("active-image");
-
-        playRound(getComputerChoice(), playerChoiceID);
+        if (!gameover && canClick) {
+            clickedImage = e.target;
+            clickedImage.classList.toggle("active-image");
+            
+            let playerChoiceID = clickedImage.id;
+            playRound(getComputerChoice(), playerChoiceID);
+        }
     }
 })
 
@@ -36,9 +39,11 @@ function updateComputerImg(computer) {
     computer.height = "110px";
 }
 
-function resetElements() {
+async function resetElements() {
+    await delay(1400);
+    clickedImage.classList.remove("active-image");
     shoutout.textContent = "Choose Rock, Paper, or Scissors";
-    clickedImage.classList.toggle("active-image");
+    canClick = true;
 }
 
 function updateWinnerText(winner, message) {
@@ -49,7 +54,33 @@ function updateWinnerText(winner, message) {
     winnerDetails.textContent = message;
 }
 
+function displayPlayAgainButton() {
+    let buttonContainer = document.querySelector('.how-win');
+    let playAgainButton = document.createElement('button');
+    buttonContainer.appendChild(playAgainButton).classList.add("play-again-button");
+    playAgainButton.textContent = "Play again!";
+
+    playAgainButton.addEventListener("click", function(e) {
+        resetGame();
+    })
+}
+
+function resetGame() {
+    let playerWinCountDisplay = document.querySelector("#player-win-counter");
+    playerWinCount = 0;
+    playerWinCountDisplay.textContent = playerWinCount;
+
+    let computerWinCountDisplay = document.querySelector("#computer-win-counter");
+    computerWinCount = 0;
+    computerWinCountDisplay.textContent = computerWinCount;
+
+    updateWinnerText("", "");
+    gameover = false;
+    canClick = true;
+}
+
 async function playRound(computer, player) {
+    canClick = false;
     let winner;
 
     updateComputerImg("question");
@@ -66,23 +97,21 @@ async function playRound(computer, player) {
     if (player === computer) {
         winner = "draw";
         updateWinnerText("Draw!", "Try again!");
-
-        gameIsDraw = true;
-        
-        resetElements();
     } else if ((player === "rock" && computer === "scissors") ||
                 (player === "paper" && computer === "rock") ||
                 (player === "scissors" && computer === "paper")) {
-        winner = "player";
-        updateWinnerText("Player wins!", `${player} beats ${computer}`);
         
         let playerWinCountDisplay = document.querySelector("#player-win-counter");
         playerWinCount += 1;
         playerWinCountDisplay.textContent = playerWinCount;
-
-        gameIsDraw = false;
         
-        resetElements();
+        if (playerWinCount >= 3) {
+            updateWinnerText("Player wins, best 3 out of 5!", "");
+            displayPlayAgainButton();
+            gameover = true;
+        } else {
+            updateWinnerText("Player wins!", `${player} beats ${computer}`);
+        }
     } else {
         winner = "computer";
         updateWinnerText("Computer wins!", `${computer} beats ${player}`);
@@ -90,12 +119,16 @@ async function playRound(computer, player) {
         let computerWinCountDisplay = document.querySelector("#computer-win-counter");
         computerWinCount += 1;
         computerWinCountDisplay.textContent = computerWinCount;
-
-        gameIsDraw = false;
         
-        resetElements();
+        if (computerWinCount >= 3) {
+            updateWinnerText("Computer wins, best 3 out of 5", "");
+            displayPlayAgainButton();
+            gameover = true;
+        } else {
+            updateWinnerText("Computer wins!", `${computer} beats ${player}`);
+        }
     }
-    return winner;
+    resetElements();
 }
 
 function game() {
