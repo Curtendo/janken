@@ -81,7 +81,6 @@ function resetGame() {
 
 async function playRound(computer, player) {
     canClick = false;
-    let winner;
 
     updateComputerImg("question");
     updateWinnerText("", "");
@@ -95,7 +94,6 @@ async function playRound(computer, player) {
     updateComputerImg(computer);
 
     if (player === computer) {
-        winner = "draw";
         updateWinnerText("Draw!", "Try again!");
     } else if ((player === "rock" && computer === "scissors") ||
                 (player === "paper" && computer === "rock") ||
@@ -113,9 +111,6 @@ async function playRound(computer, player) {
             updateWinnerText("Player wins!", `${player} beats ${computer}`);
         }
     } else {
-        winner = "computer";
-        updateWinnerText("Computer wins!", `${computer} beats ${player}`);
-        
         let computerWinCountDisplay = document.querySelector("#computer-win-counter");
         computerWinCount += 1;
         computerWinCountDisplay.textContent = computerWinCount;
@@ -130,19 +125,3 @@ async function playRound(computer, player) {
     }
     resetElements();
 }
-
-function game() {
-    // while (playerWin < 3 && computerWin < 3) {
-        // Play the game
-        let gameWinner = "";
-        do {
-            let computerSelection = getComputerChoice();
-            let playerSelection = getPlayerChoice();
-
-            gameWinner = playRound(computerSelection, playerSelection);
-        } while (gameIsDraw);
-    }
-//     alert(`Best-of-five results:
-//             Player: ${playerWin} games won 
-//             Computer: ${computerWin} games won`);
-// }
